@@ -1,18 +1,10 @@
-# Basic Sample Hardhat Project
+# AsterixNFT https://buildspace-nft-demo.gjgd.xyz/
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This project was created during the [Mint your own NFT collection and ship a Web3 app to show them off](https://app.buildspace.so/courses/CO961ddb5f-f428-4608-9949-a9a2f461eb3f) Buildspace class
 
-Try running some of the following tasks:
+Link to the website: https://buildspace-nft-demo.gjgd.xyz/
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+OpenSea collection: https://testnets.opensea.io/collection/asterixnft
 
 # Useful links
 
