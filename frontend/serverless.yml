@@ -1,0 +1,11 @@
+name: app
+app: buildspace-nft-demo
+component: website
+org: gjgdserverless
+
+inputs:
+  domain: buildspace-nft-demo.gjgd.xyz
+  src:
+    src: ./src
+    hook: npm run build
+    dist: ./build
