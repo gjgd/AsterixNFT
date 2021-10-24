@@ -7,7 +7,7 @@ import AsterixNFT from './utils/AsterixNFT'
 // Constants
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
+const OPENSEA_LINK = 'https://testnets.opensea.io/collection/asterixnft';
 const TOTAL_MINT_COUNT = 50;
 const CONTRACT_ADDRESS = "0xD53b0344218348b9846a4d678D43aE1d503454B7";
 
@@ -182,9 +182,19 @@ const App = () => {
               Connect to Wallet
             </button>
           ) : (
-            <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-              Mint NFT
-            </button>
+              <>
+                <div>
+                  <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
+                    Mint NFT
+                  </button>
+                </div>
+                <br/>
+                <div>
+                  <a type="button" href={OPENSEA_LINK} value="opensea" target="_blank" className="cta-button connect-wallet-button" rel="noreferrer">
+                    🌊 View Collection on OpenSea
+                  </a>
+                </div>
+              </>
           )}
         </div>
         <div className="footer-container">
