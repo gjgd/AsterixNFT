@@ -19,11 +19,14 @@ npx hardhat help
 ## Deployed NFT collection on Rinkeby
 
 - https://rinkeby.rarible.com/token/0xA7659Fe4235CB00e3A7F14cBb4867de7d813Ac3A:0?tab=details
-- https://testnets.opensea.io/collection/squarenft-qafmtxyhvy
 - https://rinkeby.etherscan.io/address/0xA7659Fe4235CB00e3A7F14cBb4867de7d813Ac3A
 - https://faucet.rinkeby.io/
 - https://dashboard.alchemyapi.io/
 - https://github.com/buildspace/buildspace-projects
+- https://testnets.opensea.io/collection/squarenft-qafmtxyhvy
+- https://testnets.opensea.io/collection/squarenft-vdxlmeo1la
+- https://testnets.opensea.io/collection/squarenft-sbveagzoul
+
 
 ## Encoding images
 
