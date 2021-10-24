@@ -21,6 +21,8 @@ contract AsterixNFT is ERC721URIStorage {
   string[] secondWords = ["Eats", "Hunts", "Slaps", "Licks", "Destroys", "Kisses"];
   string[] thirdWords = ["WildBoar", "StaleFish", "Menhir", "MagicPotion", "Sword", "Shield"];
 
+  event NewAsterixNFTMinted(address sender, uint256 tokenId);
+
   constructor() ERC721 ("SquareNFT", "SQUARE") {
     console.log("This is my NFT contract. Woah!");
   }
@@ -90,5 +92,7 @@ contract AsterixNFT is ERC721URIStorage {
 
     _tokenIds.increment();
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+
+    emit NewAsterixNFTMinted(msg.sender, newItemId);
   }
 }
