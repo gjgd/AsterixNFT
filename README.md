@@ -25,7 +25,8 @@ npx hardhat help
 - https://github.com/buildspace/buildspace-projects
 - https://testnets.opensea.io/collection/squarenft-qafmtxyhvy
 - https://testnets.opensea.io/collection/squarenft-vdxlmeo1la
-- https://testnets.opensea.io/collection/squarenft-sbveagzoul
+- https://testnets.opensea.io/collection/squarenft-sbveagzoul (3 word black background)
+- https://testnets.opensea.io/collection/asterixnft (3 word color background)
 
 
 ## Encoding images

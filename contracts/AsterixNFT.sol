@@ -15,16 +15,25 @@ contract AsterixNFT is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
-  string baseSvg = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
+  // We split the SVG at the part where it asks for the background color.
+  string svgPartOne = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='";
+  string svgPartTwo = "'/><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
   string[] firstWords = ["Panoramix", "Asterix", "Obelix", "Idefix", "Abraracourcix", "Assurancetourix"];
   string[] secondWords = ["Eats", "Hunts", "Slaps", "Licks", "Destroys", "Kisses"];
   string[] thirdWords = ["WildBoar", "StaleFish", "Menhir", "MagicPotion", "Sword", "Shield"];
 
+  // Get fancy with it! Declare a bunch of colors.
+  string[] colors = ["red", "#08C2A8", "black", "yellow", "blue", "green"];
+
+  uint mintedSoFar = 0;
+  // Cannot mint more nft than this number
+  uint MAX_NFT_MINTED = 50;
+
   event NewAsterixNFTMinted(address sender, uint256 tokenId);
 
-  constructor() ERC721 ("SquareNFT", "SQUARE") {
-    console.log("This is my NFT contract. Woah!");
+  constructor() ERC721 ("AsterixNFT", "ASTERIX") {
+    console.log("This is my Asterix NFT contract");
   }
 
   function pickRandomFirstWord(uint256 tokenId) public view returns (string memory) {
@@ -45,11 +54,21 @@ contract AsterixNFT is ERC721URIStorage {
     return thirdWords[rand];
   }
 
+  // Same old stuff, pick a random color.
+  function pickRandomColor(uint256 tokenId) public view returns (string memory) {
+    uint256 rand = random(string(abi.encodePacked("COLOR", Strings.toString(tokenId))));
+    rand = rand % colors.length;
+    return colors[rand];
+  }
+
   function random(string memory input) internal pure returns (uint256) {
-      return uint256(keccak256(abi.encodePacked(input)));
+    return uint256(keccak256(abi.encodePacked(input)));
   }
 
   function makeAnEpicNFT() public {
+    require(mintedSoFar < MAX_NFT_MINTED, "Cannot mint any more NFTs");
+    mintedSoFar += 1;
+
     uint256 newItemId = _tokenIds.current();
 
     string memory first = pickRandomFirstWord(newItemId);
@@ -57,18 +76,17 @@ contract AsterixNFT is ERC721URIStorage {
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
 
-    string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
+    // Add the random color in.
+    string memory randomColor = pickRandomColor(newItemId);
+    string memory finalSvg = string(abi.encodePacked(svgPartOne, randomColor, svgPartTwo, combinedWord, "</text></svg>"));
 
-    // Get all the JSON metadata in place and base64 encode it.
     string memory json = Base64.encode(
         bytes(
             string(
                 abi.encodePacked(
                     '{"name": "',
-                    // We set the title of our NFT as the generated word.
                     combinedWord,
-                    '", "description": "A collection of Asterix NFTs.", "image": "data:image/svg+xml;base64,',
-                    // We add data:image/svg+xml;base64 and then append our base64 encode our svg.
+                    '", "description": "A collection of Asterix NFTs", "image": "data:image/svg+xml;base64,',
                     Base64.encode(bytes(finalSvg)),
                     '"}'
                 )
@@ -76,7 +94,6 @@ contract AsterixNFT is ERC721URIStorage {
         )
     );
 
-    // Just like before, we prepend data:application/json;base64, to our data.
     string memory finalTokenUri = string(
         abi.encodePacked("data:application/json;base64,", json)
     );
@@ -87,12 +104,14 @@ contract AsterixNFT is ERC721URIStorage {
 
     _safeMint(msg.sender, newItemId);
 
-    // Update your URI!!!
     _setTokenURI(newItemId, finalTokenUri);
 
     _tokenIds.increment();
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
-
     emit NewAsterixNFTMinted(msg.sender, newItemId);
+  }
+
+  function getTotalNFTsMintedSoFar() public view returns (uint) {
+    return mintedSoFar;
   }
 }
